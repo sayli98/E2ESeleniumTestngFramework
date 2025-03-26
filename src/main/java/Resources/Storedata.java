@@ -1,22 +1,30 @@
 package Resources;
 
-public class Storedata {
+public class storedata {
 	
-	public static String firstname="Priya";
-	public static String Lastname="Sharma";
-	public static String Telephone="56543";
-	public static String Password="test123";
-	public static String Confirmpassword="test123";
-	public static String regexpectedtext="Your Account Has Been Created!";
-	public static String incorrectpassword="vjhvjh";
-	public static String Loginfaliedexpectedtext="Warning: No match for E-Mail Address and/or Password.";
-	//Storing expected results for all classes
-	public static String firstnameexpected = "First Name must be between 1 and 32 characters!";
-	public static String lastnameexpected= "Last Name must be between 1 and 32 characters!";
-	public static String emailexpected= "E-Mail Address does not appear to be valid!";
-	public static String telephoneexpected= "Telephone must be between 3 and 32 characters!";
-	public static String passwordexpected= "Password must be between 4 and 20 characters!";
-	public static String Loginexpectedurl= "https://naveenautomationlabs.com/opencart/index.php?route=account/logout";
-	public static String Logoutexpectedurl="Account Logout";
+	public static String firstName= "Priya";
+	public static String lastName= "Sharma";
 	
+	public static String regExpectedText= "Your Account Has Been Created!";
+	
+	public static String telePhone = "1234567890";
+	public static String password = "Naveen12";
+	public static String confirmPassword = "Naveen12";
+	public static String incorrectPassword ="kdahdf";
+	
+	//storing expected result for all the classes
+	public static String registerExpectedsucessURL = "https://naveenautomationlabs.com/opencart/index.php?route=account/success";
+	public static String firstNameErrorExpectedresult = "First Name must be between 1 and 32 characters!";	
+	public static String lastNameErrorExpectedresult = "Last Name must be between 1 and 32 characters!";
+	public static String emailErrorExpectedresult = "E-Mail Address does not appear to be valid!";
+	public static String telePhoneErrorExpectedresult = "Telephone must be between 3 and 32 characters!";
+	public static String passwordErrorExpectedresult = "Password must be between 4 and 20 characters!";
+	public static String privacyPolicyErrorExpectedresult = "Warning: You must agree to the Privacy Policy!";
+	
+	//String the expected data for login 
+	public static String Loginexpectedtext="My Account";
+	public static String logOutExpectedConfirmationurl = "https://naveenautomationlabs.com/opencart/index.php?route=account/logout";
+
+	public static String loginFailedExpectedText = "Warning: No match for E-Mail Address and/or Password.";
+
 }

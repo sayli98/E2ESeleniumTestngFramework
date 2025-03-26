@@ -6,86 +6,142 @@ import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import Pageobjectmodel.Registrationpageobjects;
-import Pageobjectmodel.homepageobjects;
 import Resources.Baseclass;
-import Resources.CommonMethod;
-import Resources.Storedata;
+import Resources.commonmethods;
+import Resources.storedata;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.Step;
+import io.qameta.allure.Story;
+import pageobjectmodel.Registrationpageobjects;
+import pageobjectmodel.homepageobjects;
 
-public class verifyregistration extends Baseclass {
+public class Verifyregistration extends Baseclass {
 	
 	@Test
-	public void verifyregistrationwithvalidtestdata() throws IOException {
+	
+	@Description("Verify user registration with valid data..")
+	@Epic("EP001")
+	@Feature("Feature1:registration valid data")
+	@Story("Story:user registration with valid data")
+	@Step("Verify valid registration")
+	@Severity(io.qameta.allure.SeverityLevel.NORMAL)
+	public void verifyRegistrationwithValiddata() throws IOException, InterruptedException{
 		
+		browserlaunch();
+		
+		driver.get("https://naveenautomationlabs.com/opencart/index.php?route=account/register");
 		
 		
 		homepageobjects hp=new homepageobjects(driver);
 		
-		CommonMethod.handleExplictWait(10,hp.clickonmyaccount(), driver);
 		
-		hp.clickonmyaccount().click();
-		hp.clickonRegistration().click();
+		commonmethods.handleExplictWait(10, hp.clickonmyAccount(), driver);
 		
-		Registrationpageobjects rp= new Registrationpageobjects(driver);
-		rp.EnterFirstname().sendKeys(Storedata.firstname);
-		rp.EnterLastname().sendKeys(Storedata.Lastname);
-		rp.EnterEmail().sendKeys(emailaddress);
-		rp.EnterTelephone().sendKeys(Storedata.Telephone);
-		rp.EnterPassword().sendKeys(Storedata.Password);
-		rp.EnterPasswordConfirm().sendKeys(Storedata.Confirmpassword);
-		rp.ClickPrivacyPolicy().click();
-		rp.ClickContinue().click();
+		hp.clickonmyAccount().click();
+		hp.clickonregister().click();
 		
 		
-		String actual=rp.getRegistrationConfirmationtext().getText();
-		String expected= Storedata.regexpectedtext;
+		Registrationpageobjects rp=new Registrationpageobjects(driver);
+		rp.Enterfirstname().sendKeys(storedata.firstName);
+		rp.EnterLastname().sendKeys(storedata.lastName);
+		rp.Enteremail().sendKeys(emailaddress);
+		rp.EnterTelephone().sendKeys(storedata.telePhone);
+		rp.EnterPassword().sendKeys(storedata.password);
+		rp.EnterPasswordconfirm().sendKeys(storedata.confirmPassword);
+		rp.policy().click();
+		rp.Continue().click();
 		
-		CommonMethod.handleAssertion(actual, expected);
+		String confirmtextactual= rp.getConfirmregistrationtext().getText();
+		String confirmtextexpected=storedata.regExpectedText;
+		commonmethods.handleassertions(confirmtextactual, confirmtextexpected);
+		
+		
 	}
-	
+
 	@Test
-public void verifyregistrationwithBlanktestdata() throws IOException {
+	@Description("Verify user registration with blank data..")
+	@Epic("EP001")
+	@Feature("Feature2:registration blank data")
+	@Story("Story:user registration with blank data")
+	@Step("Verify blank data registration")
+	@Severity(io.qameta.allure.SeverityLevel.NORMAL)
+	public void verifyRegistrationwithBlankdata() throws IOException, InterruptedException {
 		
+        browserlaunch();
+		
+		driver.get("https://naveenautomationlabs.com/opencart/index.php?route=account/register");
 		
 		homepageobjects hp=new homepageobjects(driver);
 		
-		CommonMethod.handleExplictWait(10,hp.clickonmyaccount(), driver);
+		commonmethods.handleExplictWait(10, hp.clickonmyAccount(), driver);
 		
-		hp.clickonmyaccount().click();
-		hp.clickonRegistration().click();
-		
-		Registrationpageobjects rp= new Registrationpageobjects(driver);
-		rp.geterrortxtContinue().click();
+		hp.clickonmyAccount().click();
+		hp.clickonregister().click();
 		
 		
 		
-		String firstnameactual = rp.geterrortxtFirstname().getText();
-		String firstnameexpected= Storedata.firstnameexpected;
 		
-		CommonMethod.handleAssertion(firstnameactual, firstnameexpected);
+        Registrationpageobjects rp=new Registrationpageobjects(driver);
 		
-		String lastnameactual= rp.geterrortxtLastname().getText();
-		String lastnameexpected= Storedata.lastnameexpected;
+       
+        
+		rp.Continue().click();
 		
-		CommonMethod.handleAssertion(lastnameactual, lastnameexpected);
+		commonmethods.handleExplictWait(10, rp.warningmsgemail(), driver);
 		
-		String emailactual= rp.geterrortxtEmail().getText();
-		String emailexpected= Storedata.emailexpected;
+		String Firstnameactual=rp.warningmsgfirstname().getText();
+		String Firstnameexpected=storedata.firstNameErrorExpectedresult;
+		commonmethods.handleassertions(Firstnameactual, Firstnameexpected);
 		
-		CommonMethod.handleAssertion(emailactual, emailexpected);
 		
-		String telephoneactual=rp.geterrortxtTelephone().getText();
-		String telephoneexpected= Storedata.telephoneexpected;
 		
-		CommonMethod.handleAssertion(telephoneactual, telephoneexpected);
 		
-		String passwordactual= rp.geterrortxtPassword().getText();
-		String passwordexpected= Storedata.passwordexpected;
+		String Lastnameactual=rp.warningmsgLastname().getText();
+		String Lastnameexpected=storedata.lastNameErrorExpectedresult;
+		commonmethods.handleassertions(Lastnameactual, Lastnameexpected);
 		
-		CommonMethod.handleAssertion(passwordactual, passwordexpected);
-	
+		
+		
+		String Emailactual=rp.warningmsgemail().getText();
+		String Emailexpected=storedata.emailErrorExpectedresult;
+		commonmethods.handleassertions(Emailactual, Emailexpected);
+		
+		
+		String Telephoneactual=rp.warningmsgtelephone().getText();
+		String Telephoneexpected=storedata.telePhoneErrorExpectedresult;
+		commonmethods.handleassertions(Telephoneactual, Telephoneexpected);
+
+		
+		String Passwordactual=rp.warningmsgpassword().getText();
+		String Passwordexpected=storedata.passwordErrorExpectedresult;
+		commonmethods.handleassertions(Passwordactual, Passwordexpected);
+		
+		
+		
 	}
-		
-	//}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
 
 }

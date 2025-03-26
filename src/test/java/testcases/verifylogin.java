@@ -5,82 +5,119 @@ import java.io.IOException;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import Pageobjectmodel.Loginpageobjects;
-import Pageobjectmodel.Registrationpageobjects;
-import Pageobjectmodel.homepageobjects;
 import Resources.Baseclass;
-import Resources.CommonMethod;
-import Resources.Storedata;
+import Resources.commonmethods;
+import Resources.storedata;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.Step;
+import io.qameta.allure.Story;
+import io.qameta.allure.severity.SeverityLevel;
+import pageobjectmodel.Loginpageobjects;
+import pageobjectmodel.homepageobjects;
 
-public class verifylogin extends Baseclass{
-	
+public class Verifylogin extends Baseclass{
 	@Test
-	public void verifyLoginwithvalidtestdata() throws IOException, InterruptedException {
-		
-		
-		homepageobjects hp=new homepageobjects(driver);
-		
-		CommonMethod.handleExplictWait(10,hp.clickonmyaccount(), driver);
-		
-		hp.clickonmyaccount().click();
-		hp.clickonLogin().click();
-		
-		Loginpageobjects lp= new Loginpageobjects(driver);
-		lp.enterEmail().sendKeys(emailaddress);
-		lp.enterPassword().sendKeys(Storedata.Password);
-		lp.clickonSubmit().click();
-		lp.clickonmyaccount().click();
-		lp.clickonLogout().click();
-		
-		
-		
-		
-		String loginactual= driver.getCurrentUrl();
-		String loginexpected= Storedata.Loginexpectedurl;
-		
-		CommonMethod.handleAssertion(loginactual, loginexpected);
-		
-		String logoutactual=lp.getLogouttext().getText();
-		String logoutexpected= Storedata.Logoutexpectedurl;
-		
-		
-		CommonMethod.handleAssertion(logoutactual, logoutexpected);
-		
-	}
+	@Description("Verify user login with valid data..")
+	@Epic("EP001")
+	@Feature("Feature3:Login valid data")
+	@Story("Story:user login with valid data")
+	@Step("Verify valid login")
+	@Severity(io.qameta.allure.SeverityLevel.BLOCKER)
 	
-	@Test
-	public void verifyLoginwithInvalidtestdata() throws IOException, InterruptedException {
+	public void verifyLoginwithValiddata() throws IOException, InterruptedException {
 		
-		
-		homepageobjects hp=new homepageobjects(driver);
-		
-		CommonMethod.handleExplictWait(10,hp.clickonmyaccount(), driver);
-		
-		hp.clickonmyaccount().click();
-		hp.clickonLogin().click();
-		
-		Loginpageobjects lp= new Loginpageobjects(driver);
-		lp.enterEmail().sendKeys(emailaddress);
-		lp.enterPassword().sendKeys(Storedata.incorrectpassword);
-		lp.clickonSubmit().click();
-		
-		
-		CommonMethod.handleExplictWait(15,lp.getwarningmessage(), driver);
-		
-		
-		
-		String loginfailactual= lp.getwarningmessage().getText();
-		String loginfailexpected= Storedata.Loginfaliedexpectedtext;
-		
-		
-		CommonMethod.handleAssertion(loginfailactual, loginfailexpected);
-		
-	
-		
-		
-	}
 	
 	
 	
-
+	
+	
+	homepageobjects hp=new homepageobjects(driver);
+	
+	commonmethods.handleExplictWait(10, hp.clickonmyAccount(), driver);
+	
+	hp.clickonmyAccount().click();
+	hp.clickonlogin().click();
+	
+	
+	
+	
+	Loginpageobjects lp=new Loginpageobjects(driver);
+	
+	
+	
+	lp.enteremail().sendKeys(emailaddress);
+	lp.enterpassword().sendKeys(storedata.password);
+	lp.clickonsubmit().click();
+	
+	commonmethods.handleExplictWait(20, lp.Loggedin(), driver);
+	
+	
+	
+	
+	String loginactual=lp.Loggedin().getText();
+	String loginexpected=storedata.Loginexpectedtext;
+	commonmethods.handleassertions(loginactual, loginexpected);
+	
+	
+	
+	hp.clickonmyAccount().click();
+	lp.Logout().click();
+	
+	String logouttextactual=driver.getCurrentUrl();
+	String logouttextexpected=storedata.logOutExpectedConfirmationurl;
+    commonmethods.handleassertions(logouttextactual, logouttextexpected);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
+	
+	
+	@Test
+	@Description("Verify user login with invalid data..")
+	@Epic("EP001")
+	@Feature("Feature4:Login invalid data")
+	@Story("Story:user login with invalid data")
+	@Step("Verify invalid login")
+	@Severity(io.qameta.allure.SeverityLevel.BLOCKER)
+	public void verifyLoginwithInValiddata() throws IOException, InterruptedException {
+		
+	
+	
+	
+	
+	homepageobjects hp=new homepageobjects(driver);
+	
+	commonmethods.handleExplictWait(10, hp.clickonmyAccount(), driver);
+	
+	hp.clickonmyAccount().click();
+	hp.clickonlogin().click();
+	
+	
+	
+	Loginpageobjects lp=new Loginpageobjects(driver);
+	lp.enteremail().sendKeys(emailaddress);
+	lp.enterpassword().sendKeys(storedata.incorrectPassword);
+	lp.clickonsubmit().click();
+	
+	commonmethods.handleExplictWait(15, lp.warningtext(), driver);
+	
+	String Warningerroractual=lp.warningtext().getText();
+	String Warningerrorexpected=storedata.loginFailedExpectedText;
+	commonmethods.handleassertions(Warningerroractual, Warningerrorexpected);
+	
+	
+	
+}
+}
+

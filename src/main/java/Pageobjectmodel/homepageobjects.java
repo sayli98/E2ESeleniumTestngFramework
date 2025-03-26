@@ -1,4 +1,4 @@
-package Pageobjectmodel;
+package pageobjectmodel;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,29 +8,40 @@ public class homepageobjects {
 	
 	public WebDriver driver;
 	
+	//encapsulation
 	private By myAccount= By.xpath("//a[@title='My Account']");
-	private By Registration= By.xpath("//a[text()='Register']");
-	private By login= By.xpath("//a[text()='Login']");
+	private By register=By.xpath("//a[text()='Register']");
+	private By Login=By.xpath("//a[text()='Login']");
+	
+	
 	
 	public homepageobjects(WebDriver driver) {
+		
 		this.driver=driver;
 		
 	}
 
 
-	public WebElement clickonmyaccount() {
+	public WebElement clickonmyAccount() {
+		
 		return driver.findElement(myAccount);
+		
+		
 	}
 	
 	
-	public WebElement clickonRegistration() {
-		return driver.findElement(Registration);
+public WebElement clickonregister() {
+		
+		return driver.findElement(register);
+		
+		
 	}
+
+public WebElement clickonlogin() {
 	
-	public WebElement clickonLogin() {
-		return driver.findElement(login);
-	}
-	
-	
+	return driver.findElement(Login);
+}
+
+
 
 }
